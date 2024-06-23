@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "pnpm i && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "start:production": "node server.js"
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
