@@ -11,13 +11,15 @@ export default function DashboardModule() {
   const { data } = useFetchDevice()
   const { mutation } = useAddDevice()
   const [openAddDeviceModal, setOpenAddDeviceModal] = useState(false)
+
   return (
     <div>
-      <div className="flex justify-end mb-2 bg-red-500">
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1rem', width: '100%' }}>
         <Button type="primary" onClick={() => { setOpenAddDeviceModal(true) }}>
           Create Device
         </Button>
       </div>
+
       <TableDashboard dataSource={data ?? []} />
 
       <AddDeviceModal
