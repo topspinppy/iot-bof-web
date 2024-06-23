@@ -1,23 +1,25 @@
 'use client'
 
-import { ResponseAxios } from "@/@types/responseAxios";
 import useAuth from "@/hooks/useAuth";
-import { message } from "antd";
 import { useRouter } from "next/navigation";
+import { useSnackbar } from "notistack";
 import AuthenticationForm from "./component/AuthenticationForm";
 
 export default function AuthenticationModule() {
   const data = useAuth()
   const router = useRouter()
-  const [messageApi] = message.useMessage();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar()
 
   const onFinishedForm = async (email: string, password: string) => {
     try {
       await data.login(email, password)
       router.push('/dashboard')
-    } catch (err: any) {
-      const error = err['response'] as ResponseAxios
-      messageApi.error('error!')
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        enqueueSnackbar(error.message, { variant: 'error' })
+      } else {
+        enqueueSnackbar(error as string, { variant: 'error' })
+      }
     }
   }
   return (

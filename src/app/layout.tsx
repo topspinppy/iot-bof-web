@@ -1,4 +1,5 @@
 import { AuthProvider } from "@/provider/AuthProvider";
+import SnackbarProvider from "@/provider/NotiStackProvider";
 import QueryClientProvider from "@/provider/QueryClientProvider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -21,11 +22,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <QueryClientProvider>
-          <AuthProvider>
-            {children}
-          </AuthProvider>
-        </QueryClientProvider>
+        <SnackbarProvider >
+          <QueryClientProvider>
+            <AuthProvider>
+              {children}
+            </AuthProvider>
+          </QueryClientProvider>
+        </SnackbarProvider>
       </body>
     </html>
   );

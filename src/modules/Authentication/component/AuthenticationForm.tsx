@@ -1,7 +1,7 @@
 'use client'
 
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Form, Input } from 'antd';
 
 type FormType = {
   email: string;
@@ -44,11 +44,6 @@ function AuthenticationForm(props: IAuthenticationFormProps) {
             type="password"
             placeholder="Password"
           />
-        </Form.Item>
-        <Form.Item>
-          <Form.Item name="remember" valuePropName="checked" noStyle>
-            <Checkbox>จดจำฉัน</Checkbox>
-          </Form.Item>
         </Form.Item>
 
         <Form.Item>

@@ -20,8 +20,17 @@ export default function Dashboard() {
           <Menu
             theme="dark"
             mode="horizontal"
+            items={[
+              {
+                key: '1',
+                label: 'Logout',
+                onClick: () => {
+                  alert("error!")
+                }
+              }
+            ]}
             defaultSelectedKeys={['2']}
-            style={{ flex: 1, minWidth: 0 }}
+            style={{ flex: 1, minWidth: 0, display: 'flex', justifyContent: 'end' }}
           />
         </Header>
         <Content style={{ padding: '0 48px' }}>
