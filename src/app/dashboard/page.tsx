@@ -1,6 +1,7 @@
 'use client'
 
 import AuthGuard from "@/guards/AuthGuard";
+import useAuth from "@/hooks/useAuth";
 import DashboardModule from "@/modules/Dashboard/DashboardModule";
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 
@@ -9,6 +10,7 @@ const { Header, Content, Footer } = Layout;
 
 
 export default function Dashboard() {
+  const auth = useAuth()
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -25,7 +27,7 @@ export default function Dashboard() {
                 key: '1',
                 label: 'Logout',
                 onClick: () => {
-                  alert("error!")
+                  auth.logout();
                 }
               }
             ]}
