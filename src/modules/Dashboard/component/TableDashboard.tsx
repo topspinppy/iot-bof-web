@@ -1,8 +1,10 @@
 import { Space, Table } from 'antd';
 import { useState } from 'react';
 import useDeleteDevice from '../hooks/useDeleteDevice';
+import useEditDevice from '../hooks/useEditDevice';
 import { DeviceResponse } from '../hooks/useFetchDevice';
 import DeleteDeviceModal from './DeleteDeviceModal';
+import DeviceModal from './DeviceModal';
 
 
 interface ITableDashboardProps {
@@ -12,6 +14,8 @@ interface ITableDashboardProps {
 function TableDashboard(props: ITableDashboardProps) {
   const { dataSource } = props
   const { mutation } = useDeleteDevice()
+  const { mutation: mutationEdit } = useEditDevice()
+  const [isModalEditOpen, setIsModalEditOpen] = useState<boolean>(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState<boolean>(false);
   const [tempId, setTempId] = useState<string>('');
 
@@ -51,7 +55,12 @@ function TableDashboard(props: ITableDashboardProps) {
             key: 'action',
             render: (data) => (
               <Space size="middle">
-                <a>Edit</a>
+                <a
+                  onClick={() => {
+                    setIsModalEditOpen(true)
+                    setTempId(data['_id']);
+                  }}
+                >Edit</a>
                 <a
                   onClick={() => {
                     setIsModalDeleteOpen(true)
@@ -72,9 +81,25 @@ function TableDashboard(props: ITableDashboardProps) {
         handleOk={async () => {
           mutation.mutate(tempId as any)
           setIsModalDeleteOpen(false);
+          setTempId('')
         }}
         handleCancel={() => {
           setIsModalDeleteOpen(false);
+          setTempId('')
+        }}
+      />
+
+      <DeviceModal
+        open={isModalEditOpen}
+        defaultId={tempId}
+        handleOk={async (value) => {
+          mutationEdit.mutate({ tempId, allValue: value } as any)
+          setIsModalEditOpen(false)
+          setTempId('')
+        }}
+        handleCancel={() => {
+          setIsModalEditOpen(false)
+          setTempId('')
         }}
       />
     </>

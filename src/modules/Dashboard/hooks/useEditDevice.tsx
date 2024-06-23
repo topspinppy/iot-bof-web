@@ -4,9 +4,8 @@ import {
   useQueryClient
 } from '@tanstack/react-query';
 
-export type DeviceResponse = AddDevice[]
 
-export interface AddDevice {
+export interface DeleteDevice {
   _id: string
   name: string
   type: string
@@ -16,7 +15,7 @@ export interface AddDevice {
   updatedAt: string
 }
 
-export interface DtoDevice {
+interface DtoDevice {
   name: string
   type: string
   status: string
@@ -24,11 +23,11 @@ export interface DtoDevice {
 }
 
 
-function useAddDevice() {
+function useEditDevice() {
   const currentQuery = useQueryClient()
   const mutation = useMutation<DtoDevice>({
-    mutationFn: (value) => {
-      return axiosInstance.post('/api/devices', value)
+    mutationFn: (value: any) => {
+      return axiosInstance.put(`/api/devices/${value.tempId}`, value.allValue)
     },
     onSettled: () => {
       return currentQuery.invalidateQueries({ queryKey: ['device'] })
@@ -39,4 +38,4 @@ function useAddDevice() {
   }
 }
 
-export default useAddDevice;
+export default useEditDevice;

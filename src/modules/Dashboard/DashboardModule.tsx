@@ -2,7 +2,7 @@
 
 import { Button } from "antd"
 import { useState } from "react"
-import AddDeviceModal from "./component/AddDeviceModal"
+import DeviceModal from "./component/DeviceModal"
 import TableDashboard from "./component/TableDashboard"
 import useAddDevice from "./hooks/useAddDevice"
 import useFetchDevice from "./hooks/useFetchDevice"
@@ -22,7 +22,7 @@ export default function DashboardModule() {
 
       <TableDashboard dataSource={data ?? []} />
 
-      <AddDeviceModal
+      <DeviceModal
         open={openAddDeviceModal}
         handleOk={(value) => {
           mutation.mutate(value as any)
